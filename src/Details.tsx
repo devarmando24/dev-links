@@ -1,33 +1,32 @@
-import { useTheme } from "./hooks/useTheme";
-import sol from "../src/assets/SunDim.svg";
-import lua from "../src/assets/Moon.svg";
 import p1 from "../src/assets/p1.png";
 
 import { ArrowLeft, LinkSimpleHorizontal } from "@phosphor-icons/react";
+import Modal from "react-modal";
+import { Toggle } from "./components/Toggle";
 
-export function Details() {
-  const { theme, setTheme } = useTheme();
-
+interface Props {
+  modal: boolean;
+  setModal(modal: boolean): void;
+}
+export function Details({ modal, setModal }: Props) {
   return (
-    <div className="dark:text-light text-black">
+    <Modal
+      isOpen={modal}
+      onRequestClose={() => setModal(!modal)}
+      className="h-screen w-screen dark:text-light text-black bg-light dark:bg-dark"
+    >
       <header className="h-[62px] p-5 flex items-center justify-between">
-        <button className="transition-all duration-500 hover:scale-110">
+        <button
+          onClick={() => setModal(!modal)}
+          className="transition-all duration-500 hover:scale-110"
+        >
           <ArrowLeft size={22} weight="bold" />
         </button>
         <h2 className="font-bold text-lg">Detalhes do Projeto</h2>
-        <button
-          className="transition-all duration-500 hover:scale-110"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? (
-            <img height={22} width={22} src={sol} alt="Sol" />
-          ) : (
-            <img height={22} width={22} src={lua} alt="Lua" />
-          )}
-        </button>
+        <Toggle />
       </header>
 
-      <main className="p-5 flex flex-col gap-3">
+      <section className="p-5 flex flex-col gap-3">
         <div className="flex flex-col items-center">
           <img src={p1} alt="" />
         </div>
@@ -61,7 +60,7 @@ export function Details() {
             Play Store.
           </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </Modal>
   );
 }

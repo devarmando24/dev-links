@@ -5,7 +5,10 @@ import p4 from "../../src/assets/p4.png";
 
 import { Project } from "./Project";
 
-export function Projects() {
+interface Props {
+  setModal(modal: boolean): void;
+}
+export function Projects({ setModal }: Props) {
   return (
     <div className="w-full px-5 py-[10px] flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -13,10 +16,10 @@ export function Projects() {
         <button className="text-[#858585]">Ver mais</button>
       </div>
       <div className="flex items-center justify-between">
-        <Project image={p1} name="Biblia Fiel Comentada" />
-        <Project image={p2} name="Quero te Conhecer" />
-        <Project image={p4} name="Igreja Universal" />
-        <Project image={p3} name="Hyupp" />
+        <Project image={p1} name="Biblia Fiel Comentada" setModal={setModal} />
+        <Project image={p2} name="Quero te Conhecer" setModal={setModal} />
+        <Project image={p4} name="Igreja Universal" setModal={setModal} />
+        <Project image={p3} name="Hyupp" setModal={setModal} />
       </div>
     </div>
   );

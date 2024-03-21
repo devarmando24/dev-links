@@ -3,19 +3,35 @@ import { About } from "./components/About";
 import { Button } from "./components/Button";
 import { Projects } from "./components/Projects";
 
+import Modal from "react-modal";
+import { useState } from "react";
+import { Details } from "./Details";
+
+Modal.setAppElement("#root");
+
 export function App() {
+  const [modal, setModal] = useState<boolean>(false);
+
   return (
-    <div className="w-full h-screen">
-      <Header />
+    <>
+      <div className="w-full h-screen">
+        <Header />
 
-      <About />
+        <About />
 
-      <div className="flex flex-col gap-[15px] px-5 py-[10px]">
-        <Button>Portfólio</Button>
-        <Button>Orçamento</Button>
+        <div className="flex flex-col gap-[15px] px-5 py-[10px]">
+          <Button href="https://apvictor.github.io/armando.github.io">
+            Portfólio
+          </Button>
+          <Button href="https://wa.me/5511995052373?text=Olá,%20encontrei%20seu%20portfólio.">
+            Contato
+          </Button>
+        </div>
+
+        <Projects setModal={setModal} />
       </div>
 
-      <Projects />
-    </div>
+      <Details modal={modal} setModal={setModal} />
+    </>
   );
 }
