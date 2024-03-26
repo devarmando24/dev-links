@@ -6,15 +6,17 @@ import { Projects } from "./components/Projects";
 import Modal from "react-modal";
 import { useState } from "react";
 import { Details } from "./Details";
+import { ProjectProps } from "./components/Project";
 
 Modal.setAppElement("#root");
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
+  const [project, setProject] = useState<ProjectProps | null>(null);
 
   return (
-    <>
-      <div className="w-full h-screen">
+    <div className="w-full flex justify-center items-center">
+      <div className="sm:max-w-96 w-full h-screen">
         <Header />
 
         <About />
@@ -28,10 +30,10 @@ export function App() {
           </Button>
         </div>
 
-        <Projects setModal={setModal} />
+        <Projects setModal={setModal} setProject={setProject} />
       </div>
 
-      <Details modal={modal} setModal={setModal} />
-    </>
+      <Details modal={modal} setModal={setModal} project={project} />
+    </div>
   );
 }

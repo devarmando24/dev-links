@@ -1,25 +1,34 @@
-import p1 from "../../src/assets/p1.png";
-import p2 from "../../src/assets/p2.png";
-import p3 from "../../src/assets/p3.png";
-import p4 from "../../src/assets/p4.png";
+import { useState } from "react";
+import { projects } from "../api";
 
-import { Project } from "./Project";
+import { Project, ProjectProps } from "./Project";
 
 interface Props {
   setModal(modal: boolean): void;
+  setProject(project: ProjectProps): void;
 }
-export function Projects({ setModal }: Props) {
+export function Projects({ setProject, setModal }: Props) {
+  const [seeMore, setSeeMore] = useState<boolean>(false);
+
+  const cut = seeMore ? projects.length : 4;
+
   return (
     <div className="w-full px-5 py-[10px] flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <p className="text-dark dark:text-light">Principais projetos</p>
-        <button className="text-[#858585]">Ver mais</button>
+        <button className="text-[#858585]" onClick={() => setSeeMore(!seeMore)}>
+          {!seeMore ? "Ver mais" : "Ver menos"}
+        </button>
       </div>
-      <div className="flex items-center justify-between">
-        <Project image={p1} name="Biblia Fiel Comentada" setModal={setModal} />
-        <Project image={p2} name="Quero te Conhecer" setModal={setModal} />
-        <Project image={p4} name="Igreja Universal" setModal={setModal} />
-        <Project image={p3} name="Hyupp" setModal={setModal} />
+      <div className="grid md:grid-cols-5 grid-cols-4 gap-2">
+        {projects.slice(0, cut).map((project: ProjectProps) => (
+          <Project
+            key={project.id}
+            project={project}
+            setModal={setModal}
+            setProject={setProject}
+          />
+        ))}
       </div>
     </div>
   );
